@@ -7,10 +7,18 @@
   "spec": {
     "outputDirectory": "src/docs",
     "specVersion": 3,
-    "basePath": "/api/v1"
+    "basePath": "/api/v1",
+    "securityDefinitions": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   },
   "routes": {
     "routesDir": "src",
-    "basePath": "/api/v1"
+    "basePath": "/api/v1",
+    "authenticationModule": "./src/middlewares/authentication.ts"
   }
 }

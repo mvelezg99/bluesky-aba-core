@@ -102,4 +102,4 @@ npm run dev
 
 Once the server is running, you can interact with the API and test endpoints via the auto-generated Swagger UI.
 
-👉 Swagger Dashboard: http://localhost:8000/api-docs
+👉 Swagger Dashboard: <http://localhost:8000/api-docs>

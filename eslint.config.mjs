@@ -1,6 +1,6 @@
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
 import prettierRecommended from "eslint-plugin-prettier/recommended";
+import tseslint from "typescript-eslint";
 
 export default [
   eslint.configs.recommended,
@@ -14,5 +14,14 @@ export default [
         { argsIgnorePattern: "^_" },
       ],
     },
+  },
+  {
+    ignores: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "src/routes.ts",
+      "src/docs/swagger.json",
+    ],
   },
 ];
