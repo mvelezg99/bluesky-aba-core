@@ -40,7 +40,7 @@
 		"contact": {}
 	},
 	"paths": {
-		"/api/v1/health": {
+		"/health": {
 			"get": {
 				"operationId": "GetHealth",
 				"responses": {
@@ -65,7 +65,7 @@
 	},
 	"servers": [
 		{
-			"url": "/"
+			"url": "/api/v1"
 		}
 	]
 }

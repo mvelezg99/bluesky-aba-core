@@ -1,7 +1,19 @@
 import { DataSource } from "typeorm";
+import path from "path";
 import dotenv from "dotenv";
 
 dotenv.config();
+
+const entitiesPath = path.normalize(
+  path.resolve(
+    __dirname,
+    "..",
+    "database",
+    "entities",
+    "**",
+    "*.entity.{ts,js}",
+  ),
+);
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -11,8 +23,8 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   synchronize: true, // Ideal para la prueba, crea las tablas automáticamente
-  logging: false,
-  entities: [__dirname + "../database/entities/*.{ts,js}"],
+  logging: true,
+  entities: [entitiesPath],
   subscribers: [],
   migrations: [],
 });
