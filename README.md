@@ -1,6 +1,6 @@
 # BlueSky ABA Core API 🧩
 
-> Asynchronous REST API for ABA (Applied Behavior Analysis) Therapy Clinics, featuring clinical data management and openFDA integration.
+A clinical backend API designed for ABA (Applied Behavior Analysis) Therapy Clinics. Built to handle patient records, therapy sessions, and integrations with external healthcare systems like openFDA.
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
