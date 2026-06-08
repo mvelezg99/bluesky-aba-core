@@ -1,6 +1,4 @@
-# BlueSky ABA Core API 🧩
-
-A clinical backend API designed for ABA (Applied Behavior Analysis) Therapy Clinics. Built to handle patient records, therapy sessions, and integrations with external healthcare systems like openFDA.
+# BlueSky ABA Core API
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
@@ -13,13 +11,6 @@ A clinical backend API designed for ABA (Applied Behavior Analysis) Therapy Clin
 BlueSky ABA Core is a robust backend clinical system designed to solve real-world data management challenges in ABA therapy. It provides a secure, typed, and scalable foundation for managing patient records, therapy sessions, and clinical assessments.
 
 Built with **Clean Architecture** principles and **Domain-Driven Design (DDD)**, this API ensures high maintainability and type safety from the database layer up to the HTTP response.
-
-### Core Features (Roadmap)
-
-- **Patient Management:** Secure CRUD operations for Protected Health Information (PHI).
-- **Clinical Integrations:** Asynchronous fetching of drug safety alerts via the [openFDA API](https://open.fda.gov/).
-- **Auto-generated Documentation:** Real-time Swagger UI generated directly from TypeScript interfaces using TSOA.
-- **Strict Validation:** Runtime request validation without code duplication.
 
 ---
 
