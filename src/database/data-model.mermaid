@@ -1,0 +1,51 @@
+erDiagram
+    Clinic ||--o{ Clinician : "has"
+    Clinic ||--o{ Patient : "has"
+    Diagnosis ||--o{ Patient : "has"
+    Clinician ||--o{ Session : "registers"
+    Patient ||--o{ Session : "has"
+
+    Clinic {
+        uuid id PK
+        varchar name
+        timestamp createdAt
+        timestamp updatedAt
+    }
+
+    Clinician {
+        uuid id PK
+        varchar firstName
+        varchar lastName
+        ClinicianType type
+        uuid clinicId FK
+    }
+
+    Diagnosis {
+        uuid id PK
+        varchar code UK
+        varchar name
+        text description
+    }
+
+    Patient {
+        uuid id PK
+        varchar firstName
+        varchar lastName
+        date dateOfBirth
+        varchar currentMedication
+        uuid clinicId FK
+        uuid diagnosisId FK
+        timestamp createdAt
+        timestamp updatedAt
+        timestamp deletedAt
+    }
+
+    Session {
+        uuid id PK
+        uuid patientId FK
+        uuid clinicianId FK
+        date sessionDate
+        int durationMinutes
+        text notes
+        timestamp createdAt
+    }

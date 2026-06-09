@@ -7,6 +7,8 @@
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f postgres",
+    "db:seed": "ts-node src/database/seeds/seed.ts",
+    "db:clean": "ts-node src/database/seeds/clean.ts",
     "tsoa:gen": "tsoa spec-and-routes",
     "dev": "npm run tsoa:gen && ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "npm run tsoa:gen && tsc",

@@ -3,9 +3,14 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+
+import { Clinic } from "./Clinic.entity";
+import { Diagnosis } from "./Diagnosis.entity";
 
 @Entity("patients")
 export class Patient {
@@ -22,7 +27,21 @@ export class Patient {
   dateOfBirth: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
-  diagnosis: string | null;
+  currentMedication: string | null;
+
+  @Column({ name: "clinic_id", type: "uuid" })
+  clinicId: string;
+
+  @ManyToOne(() => Clinic)
+  @JoinColumn({ name: "clinic_id" })
+  clinic: Clinic;
+
+  @Column({ name: "diagnosis_id", type: "uuid" })
+  diagnosisId: string;
+
+  @ManyToOne(() => Diagnosis)
+  @JoinColumn({ name: "diagnosis_id" })
+  diagnosis: Diagnosis;
 
   @CreateDateColumn()
   createdAt: Date;

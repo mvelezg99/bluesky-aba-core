@@ -1,0 +1,14 @@
+[
+  {
+    "id": "d1111111-1111-4111-8111-111111111111",
+    "code": "F84.0",
+    "name": "Autism Spectrum Disorder",
+    "description": "Neurodevelopmental disorder characterized by deficits in social communication and restricted, repetitive behaviors."
+  },
+  {
+    "id": "d2222222-2222-4222-8222-222222222222",
+    "code": "F90.0",
+    "name": "Attention-Deficit Hyperactivity Disorder",
+    "description": "Predominantly inattentive or hyperactive-impulsive presentation."
+  }
+]
