@@ -32,4 +32,7 @@ export const config = {
     password: getEnv("DB_PASSWORD"),
     name: getEnv("DB_NAME"),
   },
+  openFDA: {
+    baseUrl: getEnv("OPENFDA_BASE_URL", "https://api.fda.gov/drug/label.json"),
+  },
 };

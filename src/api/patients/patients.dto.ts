@@ -1,3 +1,5 @@
+import { DrugInsight } from "../../integrations/openfda/openfda.service";
+
 import { AgeGroup } from "./patients.util";
 
 export interface PatientResponse {
@@ -26,4 +28,11 @@ export interface CreatePatientRequest {
   currentMedication?: string[] | null;
   clinicId: string;
   diagnosisId: string;
+}
+
+export interface PatientInsightsResponse {
+  patientId: string;
+  patientName: string;
+  diagnosis: string;
+  fdaInsights: DrugInsight[];
 }

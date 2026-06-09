@@ -7,6 +7,182 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"AgeGroup": {
+				"enum": [
+					"INFANT",
+					"TODDLER",
+					"CHILD",
+					"ADOLESCENT",
+					"ADULT"
+				],
+				"type": "string"
+			},
+			"PatientResponse": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"dateOfBirth": {
+						"type": "string"
+					},
+					"ageGroup": {
+						"$ref": "#/components/schemas/AgeGroup"
+					},
+					"currentMedication": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"nullable": true
+					},
+					"clinic": {
+						"properties": {
+							"name": {
+								"type": "string"
+							},
+							"id": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"name",
+							"id"
+						],
+						"type": "object"
+					},
+					"diagnosis": {
+						"properties": {
+							"description": {
+								"type": "string",
+								"nullable": true
+							},
+							"name": {
+								"type": "string"
+							},
+							"code": {
+								"type": "string"
+							},
+							"id": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"description",
+							"name",
+							"code",
+							"id"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"id",
+					"firstName",
+					"lastName",
+					"dateOfBirth",
+					"ageGroup",
+					"currentMedication",
+					"clinic",
+					"diagnosis"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreatePatientRequest": {
+				"properties": {
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"dateOfBirth": {
+						"type": "string"
+					},
+					"currentMedication": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"nullable": true
+					},
+					"clinicId": {
+						"type": "string"
+					},
+					"diagnosisId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"firstName",
+					"lastName",
+					"dateOfBirth",
+					"clinicId",
+					"diagnosisId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DrugInsight": {
+				"properties": {
+					"medicationName": {
+						"type": "string"
+					},
+					"warnings": {
+						"type": "string",
+						"nullable": true
+					},
+					"boxedWarning": {
+						"type": "string",
+						"nullable": true
+					},
+					"adverseReactions": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"medicationName",
+					"warnings",
+					"boxedWarning",
+					"adverseReactions"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PatientInsightsResponse": {
+				"properties": {
+					"patientId": {
+						"type": "string"
+					},
+					"patientName": {
+						"type": "string"
+					},
+					"diagnosis": {
+						"type": "string"
+					},
+					"fdaInsights": {
+						"items": {
+							"$ref": "#/components/schemas/DrugInsight"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"patientId",
+					"patientName",
+					"diagnosis",
+					"fdaInsights"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"HealthResponse": {
 				"properties": {
 					"status": {
@@ -235,6 +411,148 @@
 		"contact": {}
 	},
 	"paths": {
+		"/patients": {
+			"get": {
+				"operationId": "GetPatients",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/PatientResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Patients"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "diagnosisCode",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreatePatient",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PatientResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Patients"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreatePatientRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/patients/{id}": {
+			"get": {
+				"operationId": "GetPatient",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PatientResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Patients"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/patients/{id}/insights": {
+			"get": {
+				"operationId": "GetPatientInsights",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PatientInsightsResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Patients"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/health": {
 			"get": {
 				"operationId": "GetHealth",
@@ -284,14 +602,6 @@
 					}
 				],
 				"parameters": [
-					{
-						"in": "query",
-						"name": "code",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
 					{
 						"in": "query",
 						"name": "search",

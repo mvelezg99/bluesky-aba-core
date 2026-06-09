@@ -4,24 +4,32 @@ import { AppDataSource } from "../../config/database";
 import { Clinic } from "../../database/entities/Clinic.entity";
 import { Diagnosis } from "../../database/entities/Diagnosis.entity";
 import { Patient } from "../../database/entities/Patient.entity";
+import {
+  DrugInsight,
+  OpenFDAService,
+} from "../../integrations/openfda/openfda.service";
 import { BadRequestException, NotFoundException } from "../../utils/exceptions";
 import { logger } from "../../utils/logger";
 
-import { CreatePatientRequest } from "./patients.dto";
+import { CreatePatientRequest, PatientInsightsResponse } from "./patients.dto";
 
 export class PatientsService {
   private patientRepository: Repository<Patient>;
   private clinicRepository: Repository<Clinic>;
   private diagnosisRepository: Repository<Diagnosis>;
 
+  private openFdaService = new OpenFDAService();
+
   constructor(
     patientRepository = AppDataSource.getRepository(Patient),
     clinicRepository = AppDataSource.getRepository(Clinic),
     diagnosisRepository = AppDataSource.getRepository(Diagnosis),
+    openFdaService = new OpenFDAService(),
   ) {
     this.patientRepository = patientRepository;
     this.clinicRepository = clinicRepository;
     this.diagnosisRepository = diagnosisRepository;
+    this.openFdaService = openFdaService;
   }
 
   public async getPatients(diagnosisCode?: string): Promise<Patient[]> {
@@ -79,5 +87,27 @@ export class PatientsService {
     );
 
     return this.patientRepository.save(newPatient);
+  }
+
+  public async getPatientInsights(
+    id: string,
+  ): Promise<PatientInsightsResponse> {
+    const patient = await this.getPatientById(id);
+
+    let fdaInsights: DrugInsight[] = [];
+
+    if (patient.currentMedication && patient.currentMedication.length > 0) {
+      const insightPromises = patient.currentMedication.map((med) =>
+        this.openFdaService.getDrugInsights(med),
+      );
+
+      fdaInsights = await Promise.all(insightPromises);
+    }
+    return {
+      patientId: patient.id,
+      patientName: `${patient.firstName} ${patient.lastName}`,
+      diagnosis: `${patient.diagnosis.code} - ${patient.diagnosis.name}`,
+      fdaInsights,
+    };
   }
 }

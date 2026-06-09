@@ -12,7 +12,11 @@ import {
 
 import { Patient } from "../../database/entities/Patient.entity";
 
-import { CreatePatientRequest, PatientResponse } from "./patients.dto";
+import {
+  CreatePatientRequest,
+  PatientInsightsResponse,
+  PatientResponse,
+} from "./patients.dto";
 import { PatientsService } from "./patients.service";
 import { calculateAgeGroup } from "./patients.util";
 
@@ -63,5 +67,12 @@ export class PatientsController extends Controller {
   ): Promise<PatientResponse> {
     const patient = await this.patientsService.createPatient(requestBody);
     return this.buildPatientResponse(patient);
+  }
+
+  @Get("{id}/insights")
+  public async getPatientInsights(
+    @Path() id: string,
+  ): Promise<PatientInsightsResponse> {
+    return this.patientsService.getPatientInsights(id);
   }
 }
