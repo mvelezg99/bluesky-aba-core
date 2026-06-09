@@ -46,7 +46,9 @@ const seedDatabase = async () => {
     await AppDataSource.getRepository(Clinic).save(clinicsData);
 
     console.log("📥 Inserting Clinicians...");
-    await AppDataSource.getRepository(Clinician).save(cliniciansData);
+    await AppDataSource.getRepository(Clinician).save(
+      cliniciansData as unknown as Partial<Clinician>[],
+    );
 
     console.log("📥 Inserting Patients...");
     await AppDataSource.getRepository(Patient).save(patientsData);

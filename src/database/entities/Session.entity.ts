@@ -38,6 +38,6 @@ export class Session {
   @JoinColumn({ name: "clinician_id" })
   clinician: Clinician;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   createdAt: Date;
 }

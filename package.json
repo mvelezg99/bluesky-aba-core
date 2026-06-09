@@ -14,7 +14,8 @@
     "build": "npm run tsoa:gen && tsc",
     "start": "node dist/server.js",
     "lint": "eslint \"src/**/*.ts\"",
-    "lint:fix": "eslint \"src/**/*.ts\" --fix"
+    "lint:fix": "eslint \"src/**/*.ts\" --fix",
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -49,12 +50,14 @@
     "@types/morgan": "^1.9.10",
     "@types/node": "^25.9.2",
     "@types/swagger-ui-express": "^4.1.8",
+    "@vitest/coverage-v8": "^4.1.8",
     "eslint": "^10.4.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",
     "prettier": "^3.8.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.60.1"
+    "typescript-eslint": "^8.60.1",
+    "vitest": "^4.1.8"
   }
 }

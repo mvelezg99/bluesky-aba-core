@@ -1,12 +1,10 @@
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from "typeorm";
 
 import { Clinic } from "./Clinic.entity";
@@ -26,8 +24,8 @@ export class Patient {
   @Column({ type: "date" })
   dateOfBirth: string;
 
-  @Column({ type: "varchar", length: 255, nullable: true })
-  currentMedication: string | null;
+  @Column({ type: "varchar", array: true, nullable: true })
+  currentMedication: string[] | null;
 
   @Column({ name: "clinic_id", type: "uuid" })
   clinicId: string;
@@ -43,12 +41,6 @@ export class Patient {
   @JoinColumn({ name: "diagnosis_id" })
   diagnosis: Diagnosis;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }

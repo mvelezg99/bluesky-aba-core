@@ -1,10 +1,8 @@
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from "typeorm";
 
 @Entity("clinics")
@@ -15,12 +13,6 @@ export class Clinic {
   @Column({ type: "varchar", length: 150 })
   name: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 }

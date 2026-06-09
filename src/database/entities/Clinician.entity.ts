@@ -22,7 +22,7 @@ export class Clinician {
   lastName: string;
 
   @Column({ type: "enum", enum: ClinicianType })
-  type: string;
+  type: ClinicianType;
 
   @Column({ name: "clinic_id", type: "uuid" })
   clinicId: string;
