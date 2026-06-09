@@ -41,8 +41,6 @@ export class OpenFDAService {
         `${this.baseUrl}?search=openfda.generic_name:"${genericName}"&limit=1`,
       );
 
-      console.log("response", response);
-
       if (!response.ok) {
         logger.warn(
           `FDA API request failed with status ${response.status} for medication: ${genericName}`,
@@ -53,8 +51,6 @@ export class OpenFDAService {
 
       const data = await response.json();
 
-      console.log("data", data);
-
       if (!data.results || data.results.length === 0) {
         logger.info(
           `No FDA data found for medication: ${genericName}`,
@@ -64,8 +60,6 @@ export class OpenFDAService {
       }
 
       const result = data.results[0];
-
-      console.log("result", result);
 
       return {
         medicationName: medicationString,
